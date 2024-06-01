@@ -1,0 +1,24 @@
+:root {
+  --window-bg: #ffffff;
+  --header-bg: #007bff;
+  --header-color: #ffffff;
+  --message-bg-user: #e0f7fa;
+  --message-bg-ai: #e6e6e6;
+  --message-color: #000000;
+  --input-bg: #ffffff;
+  --input-color: #000000;
+  --input-border: #cccccc;
+  --video-border: #cccccc;
+  --navbar-bg: #ffffff;
+  --navbar-color: #000000;
+  --navbar-hover-bg: #ffffff;
+  --sidebar-bg: #ffffff;
+  --sidebar-color: #000000;
+  --sidebar-hover-bg: #ffffff;
+  --button-bg: #ffffff;
+  --message-bg-user: #ffffff;
+  --message-bg-ai: #ffffff;
+  --message-color: #000;
+  --avatar-bg: #007bff;
+  --timestamp-color: #999;
+}

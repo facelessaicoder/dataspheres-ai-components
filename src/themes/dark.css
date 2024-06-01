@@ -1,0 +1,19 @@
+:root {
+  --window-bg: #121212;
+  --header-bg: #1e1e1e;
+  --header-color: #ffffff;
+  --message-bg-user: #007bff;
+  --message-bg-ai: #333333;
+  --message-color: #ffffff;
+  --input-bg: #333333;
+  --input-color: #ffffff;
+  --input-border: #555555;
+  --video-border: #555555;
+  --navbar-bg: #121212;
+  --navbar-color: #ffffff;
+  --navbar-hover-bg: #121212;
+  --sidebar-bg: #121212;
+  --sidebar-color: #ffffff;
+  --sidebar-hover-bg: #121212;
+  --button-bg: #121212;
+}

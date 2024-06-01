@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dataspheres AI Components</title>
+  <link id="theme-link" rel="stylesheet" href="/themes/light.css">
+  <link rel="stylesheet" href="/themes/base.css">
+</head>
+<body>
+  <horizontal-navbar nav-links='[
+    {"label": "Dataspheres", "href": "#", "nav": "components"},
+    {"label": "Chats", "href": "#", "nav": "layouts"},
+    {"label": "Threads", "href": "#", "nav": "sample-apps"},
+    {"label": "Pages", "href": "#", "nav": "sample-apps"}
+  ]'></horizontal-navbar>
+  <left-sidebar class="hidden" title="Menu" sections='[
+    {"title": "New Chat", "links": [{"label": "Start New Chat", "href": "#"}]},
+    {"title": "Conversations", "links": [{"label": "Recent Chats", "href": "#"}]},
+    {"title": "DMs", "links": [{"label": "Direct Messages", "href": "#"}]}
+  ]'></left-sidebar>
+  <right-sidebar class="hidden"></right-sidebar>
+  <main>
+    <chat-window>
+      <div slot="messages">
+        <!-- Example messages -->
+        <chat-message type="user" message="Hello!"></chat-message>
+        <chat-message type="ai" message="Hi there! How can I assist you today?"></chat-message>
+      </div>
+    </chat-window>
+  </main>
+
+  <script src="bundle.js"></script>
+</body>
+</html>
