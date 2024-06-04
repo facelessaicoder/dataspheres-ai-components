@@ -8,7 +8,7 @@ body {
     background-color: var(--window-bg);
     color: var(--message-color);
     height: 100vh;
-    overflow: hidden;
+    padding-top: 60px; /* Adjust based on the navbar height */
   }
   
   /* Main container styles */
@@ -61,6 +61,10 @@ body {
   
   /* Responsive styles */
   @media (max-width: 768px) {
+    body {
+      padding-top: 0px;
+    }
+
     left-sidebar, right-sidebar {
       width: 100%;
       height: auto;

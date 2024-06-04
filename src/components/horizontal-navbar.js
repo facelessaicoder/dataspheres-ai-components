@@ -69,7 +69,7 @@ class HorizontalNavbar extends HTMLElement {
           </svg>                
         </button>
         <div style="align-content: center;">
-          ${navLinks.map(link => `<a href="${link.href}" data-nav="${link.nav}">${link.label}</a>`).join('')}
+          ${navLinks.map(link => `<a href="${link.href}" data-nav="${link.nav}" target="${link.target || "_parent"}">${link.label}</a>`).join('')}
         </div>
         <button id="toggle-right-sidebar">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="25">
@@ -81,16 +81,17 @@ class HorizontalNavbar extends HTMLElement {
     `;
 
     this.shadowRoot.querySelector('#toggle-left-sidebar').addEventListener('click', () => {
-      const leftSidebar = document.querySelector('left-sidebar');
-      console.log('Toggle button clicked');
-      if (leftSidebar) {
-        leftSidebar.classList.toggle('expanded');
-        console.log('Left sidebar expanded:', leftSidebar.classList.contains('expanded'));
-      }
+        const leftSidebar = document.querySelector('left-sidebar');
+        if (leftSidebar) {
+            leftSidebar.classList.toggle('expanded');
+        }
     });
 
     this.shadowRoot.querySelector('#toggle-right-sidebar').addEventListener('click', () => {
-      document.querySelector('right-sidebar').classList.toggle('hidden');
+        const rightSidebar = document.querySelector('right-sidebar');
+        if (rightSidebar) {
+            rightSidebar.classList.toggle('hidden');
+        }
     });
   }
 }

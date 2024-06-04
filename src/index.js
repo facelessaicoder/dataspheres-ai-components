@@ -10,6 +10,16 @@ import './components/flex-layout.js';
 import './components/left-sidebar.js';
 import './components/right-sidebar.js';
 import './components/horizontal-navbar.js';
+import './components/hero-section.js';
+import './components/features-section.js';
+import './components/icon-element.js';
+import './components/animated-text.js';
+import './components/scroll-trigger.js';
+import './components/scroll-animator.js';
+import './components/story-container.js';
+import './components/story-section.js';
+import './components/scroll-animations.js';
+import './components/particle-animation.js';
 
 // Importing configuration, theme, and navigation handling functions
 import { initializeConfig } from './config.js';
@@ -24,6 +34,6 @@ export function initializeLibrary(config) {
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeLibrary({
-    defaultTheme: 'light',
+    defaultTheme: 'auto',
   });
 });
