@@ -1,3 +1,5 @@
+import EventBus from '../event-bus.js';
+
 class MessageInput extends HTMLElement {
   constructor() {
     super();
@@ -79,7 +81,8 @@ class MessageInput extends HTMLElement {
     `;
 
     this.textareaElement = this.shadowRoot.querySelector('textarea');
-    this.buttonElement = this.shadowRoot.querySelector('button');
+    this.sendButtonElement = this.shadowRoot.querySelector('button[title="Send message"]');
+    this.attachmentButtonElement = this.shadowRoot.querySelector('button[title="Attach file"]');
 
     this.textareaElement.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
@@ -88,22 +91,25 @@ class MessageInput extends HTMLElement {
       }
     });
 
-    this.buttonElement.addEventListener('click', () => {
+    this.sendButtonElement.addEventListener('click', () => {
       this.sendMessage();
+    });
+
+    this.attachmentButtonElement.addEventListener('click', () => {
+      this.attachFile();
     });
   }
 
   sendMessage() {
     const message = this.textareaElement.value;
     if (message) {
-      const event = new CustomEvent('message-sent', {
-        detail: { message },
-        bubbles: true,
-        composed: true,
-      });
-      this.dispatchEvent(event);
+      EventBus.emit('newMessage', { message });
       this.textareaElement.value = '';
     }
+  }
+
+  attachFile() {
+    // Logic for attaching a file can be added here
   }
 }
 

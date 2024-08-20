@@ -68,6 +68,14 @@ class ChatMessage extends HTMLElement {
     this.render();
   }
 
+  static get observedAttributes() {
+    return ['message', 'name', 'avatar', 'timestamp', 'type'];
+  }
+
+  attributeChangedCallback() {
+    this.render();
+  }
+
   render() {
     const messageType = this.getAttribute('type') || 'user';
     const messageText = this.getAttribute('message') || '';

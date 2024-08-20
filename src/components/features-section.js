@@ -46,7 +46,7 @@ class FeaturesSection extends HTMLElement {
                     margin-bottom: 20px;
                 }
             </style>
-            <div class="features">
+            <div class="features">   
                 ${features.map(feature => `
                     <div class="feature">
                         <icon-element icon-name="${feature.icon}" size="50px" color="#007bff"></icon-element>

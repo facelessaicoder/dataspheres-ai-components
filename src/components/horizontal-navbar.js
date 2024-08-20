@@ -1,3 +1,6 @@
+// src/components/horizontal-navbar.js
+import { EventBus } from '../event-bus.js';
+
 class HorizontalNavbar extends HTMLElement {
   constructor() {
     super();
@@ -12,6 +15,17 @@ class HorizontalNavbar extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'nav-links' && oldValue !== newValue) {
       this.render();
+    }
+  }
+
+  navigateToSection(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const target = event.currentTarget.getAttribute('data-href');
+    if (target) {
+      EventBus.emit('navigate', { target });
+      // Optionally, scroll to the section
+      document.querySelector(target).scrollIntoView({ behavior: 'smooth' });
     }
   }
 
@@ -69,7 +83,7 @@ class HorizontalNavbar extends HTMLElement {
           </svg>                
         </button>
         <div style="align-content: center;">
-          ${navLinks.map(link => `<a href="${link.href}" data-nav="${link.nav}" target="${link.target || "_parent"}">${link.label}</a>`).join('')}
+          ${navLinks.map(link => `<a data-href="${link.href}" onclick="${this.navigateToSection}" data-nav="${link.nav}" target="${link.target || "_parent"}">${link.label}</a>`).join('')}
         </div>
         <button id="toggle-right-sidebar">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" height="25">
@@ -80,18 +94,22 @@ class HorizontalNavbar extends HTMLElement {
       </nav>
     `;
 
+    this.shadowRoot.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', this.navigateToSection.bind(this));
+    });
+
     this.shadowRoot.querySelector('#toggle-left-sidebar').addEventListener('click', () => {
-        const leftSidebar = document.querySelector('left-sidebar');
-        if (leftSidebar) {
-            leftSidebar.classList.toggle('expanded');
-        }
+      const leftSidebar = document.querySelector('left-sidebar');
+      if (leftSidebar) {
+        leftSidebar.classList.toggle('expanded');
+      }
     });
 
     this.shadowRoot.querySelector('#toggle-right-sidebar').addEventListener('click', () => {
-        const rightSidebar = document.querySelector('right-sidebar');
-        if (rightSidebar) {
-            rightSidebar.classList.toggle('hidden');
-        }
+      const rightSidebar = document.querySelector('right-sidebar');
+      if (rightSidebar) {
+        rightSidebar.classList.toggle('hidden');
+      }
     });
   }
 }

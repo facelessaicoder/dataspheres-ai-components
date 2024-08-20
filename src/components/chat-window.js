@@ -1,3 +1,6 @@
+import EventBus from '../event-bus.js';
+import './chat-message.js'; // Import the sub-component
+
 class ChatWindow extends HTMLElement {
   constructor() {
     super();
@@ -38,12 +41,12 @@ class ChatWindow extends HTMLElement {
           width: 100%;
           color: var(--message-color);
         }
-        
+
         chat-message.user {
           background-color: var(--message-bg-user);
           align-self: flex-end;
         }
-        
+
         chat-message.ai {
           background-color: var(--message-bg-ai);
           align-self: flex-start;
@@ -81,19 +84,47 @@ class ChatWindow extends HTMLElement {
     this.messageInput = this.shadowRoot.querySelector('message-input');
 
     this.messageInput.addEventListener('message-sent', (e) => {
-      this.addMessage('user', e.detail.message);
+      this.sendMessage(e.detail.message);
     });
 
     // Add event listener for new-chat
-    document.addEventListener('new-chat', () => {
-      this.clearMessages();
+    document.addEventListener('new-chat', (e) => {
+      const chatId = e.detail.chatId;
+      this.switchChatChannel(chatId);
     });
+
+    EventBus.on('newMessage', this.handleNewMessage.bind(this));
+
+    this.socket = null;
+    this.reconnectInterval = 5000; // 5 seconds
   }
 
-  addMessage(type, message) {
+  connectedCallback() {
+    // Connect to the default chat channel
+    this.switchChatChannel('default-chat');
+  }
+
+  handleNewMessage(payload) {
+    if (payload && typeof payload === 'object') {
+      console.log('Received new message:', payload);
+      const { client_id, message, timestamp, type } = payload;
+      this.addMessage(client_id || 'User', message, timestamp, type || 'user');
+    } else {
+      console.error('Invalid message payload');
+    }
+  }
+
+  addMessage(name, message, timestamp, type) {
+    if (!message) {
+      console.error('Message is undefined or empty:', message);
+      return;
+    }
     const messageElement = document.createElement('chat-message');
+    messageElement.setAttribute('name', name);
+    messageElement.setAttribute('message', typeof message === 'string' ? message : JSON.stringify(message));
+    messageElement.setAttribute('timestamp', timestamp || new Date().toLocaleTimeString());
     messageElement.setAttribute('type', type);
-    messageElement.setAttribute('message', message);
+    messageElement.setAttribute('avatar', (name && name[0]) || 'U'); // Default to 'U' if name is undefined or empty
     this.chatWindowElement.prepend(messageElement);
   }
 
@@ -112,6 +143,53 @@ class ChatWindow extends HTMLElement {
     children.forEach(message => {
       message.style.display = 'none';
     });
+  }
+
+  switchChatChannel(chatId) {
+    if (this.socket) {
+      this.socket.close();
+    }
+    this.clearMessages();
+
+    this.connectToWebSocket(chatId);
+  }
+
+  connectToWebSocket(chatId) {
+    this.socket = new WebSocket(`ws://127.0.0.1:8000/ws/${chatId}`);
+
+    this.socket.onopen = () => {
+      console.log(`Connected to chat channel: ${chatId}`);
+    };
+
+    this.socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log('Received message:', data);
+      this.handleNewMessage(data);
+    };
+
+    this.socket.onclose = (event) => {
+      console.log(`Disconnected from chat channel: ${chatId} - Reason: ${event.reason}`);
+      setTimeout(() => {
+        this.connectToWebSocket(chatId);
+      }, this.reconnectInterval);
+    };
+
+    this.socket.onerror = (error) => {
+      console.error(`WebSocket error: ${error}`);
+    };
+  }
+
+  sendMessage(message) {
+    if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+      const chatId = 'chat_1'; // Example chat ID
+      console.log(`Sending message to chat ${chatId}:`, message);
+      this.socket.send(JSON.stringify({
+        chat_id: chatId,
+        message: message,
+        client_id: 'user', 
+        timestamp: new Date().toLocaleTimeString()
+      }));
+    }
   }
 }
 
