@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glamour Cuts - Your Premier Hair Salon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <full-page-layout>
+    <basic-header 
+      logo-text="Glamour Cuts"
+      menu-items='[
+        {"text": "Home", "url": "#home"},
+        {"text": "Services", "url": "#services"},
+        {"text": "Contact", "url": "#contact"}
+      ]'
+    ></basic-header>
+
+    <image-hero 
+      data-full-section
+      title="Transform Your Look at Glamour Cuts"
+      subtitle="Expert stylists ready to bring your hair dreams to life"
+      cta-text="Book Your Appointment"
+      cta-url="#contact"
+      background-image="https://example.com/salon-image.jpg"
+    ></image-hero>
+
+    <services-section
+      data-full-section
+      services='[
+        { "name": "Haircut", "description": "Precision cut tailored to your style", "price": 50 },
+        { "name": "Color", "description": "Vibrant, long-lasting hair color", "price": 80 },
+        { "name": "Styling", "description": "Special occasion or everyday styling", "price": 40 },
+        { "name": "Treatment", "description": "Nourishing treatments for healthy hair", "price": 60 },
+        { "name": "Blowout", "description": "Professional blow dry and style", "price": 35 },
+        { "name": "Extensions", "description": "High-quality hair extensions", "price": 150 }
+      ]'
+    ></services-section>
+
+    <contact-us-section
+      data-full-section
+      phone="(555) 123-4567"
+      email="info@glamourcuts.com"
+      address="789 Beauty Lane, Stylesville, ST 54321"
+    ></contact-us-section>
+  </full-page-layout>
+
+  <script src="/bundle.js"></script>
+</body>
+</html>

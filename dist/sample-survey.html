@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Survey - Dataspheres AI Components</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div id="survey-container"></div>
+
+  <script src="/bundle.js"></script>
+  <script>
+const surveyContainer = document.getElementById('survey-container');
+const surveyComponent = document.createElement('survey-container');
+surveyComponent.questions = [
+  {
+    title: "Welcome to our Survey",
+    description: "We appreciate your participation in this survey. Your feedback is valuable to us.",
+    component: "p",
+    attributes: {}
+  },
+  {
+    title: "What is your name?",
+    description: "Please enter your full name.",
+    component: "text-question",
+    attributes: {
+      question: "Enter your name",
+      rows: 1  // This will create a single-line input
+    }
+  },
+  {
+    title: "Tell us about your experience",
+    description: "You can type your answer, record audio, or record video.",
+    component: "text-question",
+    attributes: {
+        question: "Describe your experience with our product",
+        rows: 3,
+        "enable-audio": true,
+        "enable-video": true
+    }
+  },
+  {
+    title: "Tell us about yourself",
+    description: "Please provide a brief description about yourself.",
+    component: "text-question",
+    attributes: {
+      question: "Tell us about yourself",
+      rows: 3  // This will create a multi-line textarea with 3 rows
+    }
+  },
+  {
+    title: "How did you hear about us?",
+    description: "Select the option that best describes how you found out about our company.",
+    component: "multiple-choice-question",
+    attributes: {
+      question: "How did you hear about us?",
+      options: ["Social Media", "Friend or Family", "Search Engine", "Advertisement"]
+    }
+  },
+  {
+    title: "Any additional comments?",
+    description: "Please share any additional thoughts or feedback you may have.",
+    component: "text-question",
+    attributes: {
+      question: "Your comments",
+      rows: 5  // This will create a larger multi-line textarea with 5 rows
+    }
+  }
+];
+surveyContainer.appendChild(surveyComponent);
+  </script>
+</body>
+</html>

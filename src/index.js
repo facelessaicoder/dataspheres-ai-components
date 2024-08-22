@@ -22,6 +22,19 @@ import './components/scroll-animations.js';
 import './components/particle-animation.js';
 import './event-bus.js'
 
+// New survey component imports
+import './components/surveys/survey-container.js';
+import './components/surveys/text-question.js';
+import './components/surveys/multiple-choice-question.js';
+
+// Import and export web builder components
+import './components/web_builder/layout/full-page-layout.js';
+import './components/web_builder/layout/header/basic-header.js';
+import './components/web_builder/content/contact/contact-us-section.js';
+import './components/web_builder/content/hero/image-hero.js';
+import './components/web_builder/content/services/services-grid.js';
+import './components/web_builder/content/services/services-section.js';
+
 // Importing configuration, theme, and navigation handling functions
 import { initializeConfig } from './config.js';
 import { initializeTheme } from './theme.js';
