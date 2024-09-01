@@ -13,6 +13,15 @@ export function getConfig() {
 }
 
 function applyTheme(theme) {
+  let baseLink = document.getElementById('base-theme-link');
+  if (!baseLink) {
+    baseLink = document.createElement('link');
+    baseLink.rel = 'stylesheet';
+    baseLink.id = 'base-theme-link';
+    document.head.appendChild(baseLink);
+  }
+  baseLink.href = window.themePaths.base;
+
   let themeLink = document.getElementById('theme-link');
   if (!themeLink) {
     themeLink = document.createElement('link');
@@ -20,7 +29,7 @@ function applyTheme(theme) {
     themeLink.id = 'theme-link';
     document.head.appendChild(themeLink);
   }
-  themeLink.href = `themes/${theme}.css`;
+  themeLink.href = window.themePaths[theme];
   localStorage.setItem('preferred-theme', theme);
 }
 
