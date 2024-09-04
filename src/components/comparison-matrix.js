@@ -6,6 +6,7 @@ class ComparisonMatrix extends HTMLElement {
       this._xAxis = [];
       this._yAxis = [];
       this._matrix = [];
+      this._sortState = { index: -1, direction: 'asc', axis: null };
     }
   
     connectedCallback() {
@@ -34,13 +35,12 @@ class ComparisonMatrix extends HTMLElement {
     }
   
     render() {
-      const upDownSvg = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
-      </svg>`;
-  
-      const leftRightSvg = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-      </svg>`;
+      const getSortIcon = (index, axis) => {
+        if (this._sortState.index === index && this._sortState.axis === axis) {
+          return this._sortState.direction === 'asc' ? '↑' : '↓';
+        }
+        return '↕';
+      };
   
       this.shadowRoot.innerHTML = `
         <style>
@@ -81,10 +81,14 @@ class ComparisonMatrix extends HTMLElement {
           .sort-btn:hover {
             color: var(--hover-color);
           }
-          .sort-btn svg {
-            width: 18px;
-            height: 18px;
+          .sort-icon {
             margin-left: 4px;
+          }
+          .text-right {
+            text-align: right;
+          }
+          .text-center {
+            text-align: center;
           }
         </style>
         <div class="matrix-container">
@@ -96,7 +100,7 @@ class ComparisonMatrix extends HTMLElement {
                   <th>
                     <span class="sort-btn" data-index="${index}" data-axis="x">
                       ${item}
-                      ${leftRightSvg}
+                      <span class="sort-icon">${getSortIcon(index, 'x')}</span>
                     </span>
                   </th>
                 `).join('')}
@@ -108,11 +112,11 @@ class ComparisonMatrix extends HTMLElement {
                   <th>
                     <span class="sort-btn" data-index="${yIndex}" data-axis="y">
                       ${item}
-                      ${upDownSvg}
+                      <span class="sort-icon">${getSortIcon(yIndex, 'y')}</span>
                     </span>
                   </th>
-                  ${this._matrix[yIndex].map((cell) => `
-                    <td>${cell}</td>
+                  ${(this._matrix[yIndex] || []).map((cell) => `
+                    <td class="${cell.type === 'currency' || cell.type === 'number' ? 'text-right' : cell.type === 'rating' ? 'text-center' : ''}">${this.formatCell(cell)}</td>
                   `).join('')}
                 </tr>
               `).join('')}
@@ -122,6 +126,21 @@ class ComparisonMatrix extends HTMLElement {
       `;
   
       this.setupSorting();
+    }
+  
+    formatCell(cell) {
+      if (!cell) return 'N/A';
+      switch (cell.type) {
+        case 'currency':
+          return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(cell.value);
+        case 'number':
+          return new Intl.NumberFormat('en-US').format(cell.value);
+        case 'rating':
+          return '★'.repeat(Math.floor(cell.value)) + '☆'.repeat(5 - Math.floor(cell.value));
+        case 'text':
+        default:
+          return cell.value;
+      }
     }
   
     setupSorting() {
@@ -136,22 +155,45 @@ class ComparisonMatrix extends HTMLElement {
     }
   
     sortMatrix(index, axis) {
+      const compareFunction = (a, b, direction) => {
+        const aValue = a?.value ?? null;
+        const bValue = b?.value ?? null;
+        if (aValue === null && bValue === null) return 0;
+        if (aValue === null) return direction === 'asc' ? 1 : -1;
+        if (bValue === null) return direction === 'asc' ? -1 : 1;
+        if (a.type === 'text') return direction === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+        return direction === 'asc' ? aValue - bValue : bValue - aValue;
+      };
+  
+      // Toggle sort direction if clicking the same column/row
+      if (this._sortState.index === index && this._sortState.axis === axis) {
+        this._sortState.direction = this._sortState.direction === 'asc' ? 'desc' : 'asc';
+      } else {
+        this._sortState = { index, axis, direction: 'asc' };
+      }
+  
       if (axis === 'x') {
         const sorted = this._matrix[0].map((_, colIndex) => 
-          this._matrix.map(row => row[colIndex])
-        ).sort((a, b) => a[index] - b[index]);
+          this._matrix.map(row => row[colIndex] || { type: 'text', value: 'N/A' })
+        ).sort((a, b) => compareFunction(a[index], b[index], this._sortState.direction));
   
         this._matrix = sorted[0].map((_, rowIndex) => 
           sorted.map(col => col[rowIndex])
         );
+  
+        // Update x-axis order
+        const sortedXAxis = this._xAxis.map((_, i) => ({ value: this._xAxis[i], index: i }))
+          .sort((a, b) => compareFunction(this._matrix[index][a.index], this._matrix[index][b.index], this._sortState.direction));
+        this._xAxis = sortedXAxis.map(item => item.value);
       } else {
         const sortedIndices = this._matrix.map((_, i) => i)
-          .sort((a, b) => this._matrix[a][index] - this._matrix[b][index]);
+          .sort((a, b) => compareFunction(this._matrix[a][index], this._matrix[b][index], this._sortState.direction));
   
         this._yAxis = sortedIndices.map(i => this._yAxis[i]);
-        this._matrix = sortedIndices.map(i => this._matrix[i]);
+        this._matrix = sortedIndices.map(i => this._matrix[i] || []);
       }
   
+      this.setAttribute('x-axis', JSON.stringify(this._xAxis));
       this.setAttribute('y-axis', JSON.stringify(this._yAxis));
       this.setAttribute('matrix-data', JSON.stringify(this._matrix));
       this.render();
