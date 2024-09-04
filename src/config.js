@@ -13,6 +13,16 @@ export function getConfig() {
 }
 
 function applyTheme(theme) {
+  // Default theme paths
+  const defaultThemePaths = {
+    base: '/themes/base.css',
+    light: '/themes/light.css',
+    dark: '/themes/dark.css'
+  };
+
+  // Use window.themePaths if available, otherwise use defaultThemePaths
+  const themePaths = window.themePaths || defaultThemePaths;
+
   let baseLink = document.getElementById('base-theme-link');
   if (!baseLink) {
     baseLink = document.createElement('link');
@@ -20,7 +30,7 @@ function applyTheme(theme) {
     baseLink.id = 'base-theme-link';
     document.head.appendChild(baseLink);
   }
-  baseLink.href = window.themePaths.base;
+  baseLink.href = themePaths.base || defaultThemePaths.base;
 
   let themeLink = document.getElementById('theme-link');
   if (!themeLink) {
@@ -29,7 +39,7 @@ function applyTheme(theme) {
     themeLink.id = 'theme-link';
     document.head.appendChild(themeLink);
   }
-  themeLink.href = window.themePaths[theme];
+  themeLink.href = themePaths[theme] || defaultThemePaths[theme] || defaultThemePaths.light;
   localStorage.setItem('preferred-theme', theme);
 }
 

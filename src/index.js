@@ -20,6 +20,7 @@ import './components/story-container.js';
 import './components/story-section.js';
 import './components/scroll-animations.js';
 import './components/particle-animation.js';
+import './components/comparison-matrix.js';
 import './event-bus.js'
 
 // New survey component imports

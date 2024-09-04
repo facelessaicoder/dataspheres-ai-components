@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Matrix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  
+    <comparison-matrix
+      x-axis='["iPhone 13", "Samsung Galaxy S21", "Google Pixel 6", "OnePlus 9"]'
+      y-axis='["Price", "Camera", "Battery Life", "Performance"]'
+      matrix-data='[
+        [799, 799, 599, 729],
+        [4.5, 4.7, 4.8, 4.6],
+        [4.2, 4.5, 4.3, 4.4],
+        [4.8, 4.7, 4.6, 4.7]
+      ]'
+    ></comparison-matrix>
+
+  <script src="/bundle.js"></script>
+</body>
+</html>
