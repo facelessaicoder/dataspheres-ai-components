@@ -23,6 +23,10 @@ import './components/particle-animation.js';
 import './components/comparison-matrix.js';
 import './event-bus.js'
 
+// notification component imports
+import './components/notifications/toast-notification.js';
+import './components/notifications/toast-container.js';
+
 // New survey component imports
 import './components/surveys/survey-container.js';
 import './components/surveys/text-question.js';
