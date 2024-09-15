@@ -39,6 +39,19 @@
     </chat-window>
   </main>
 
+  <toast-container>
+    <toast-notification message="This is a test notification" type="info"></toast-notification>
+    <toast-notification message="This is a test notification" type="info"></toast-notification>
+    <toast-notification message="I'll stay for 10 seconds" duration="10000"></toast-notification>
+    <toast-notification message="Click me!" click-callback="() => { console.log('Notification clicked!'); }"></toast-notification>
+    <toast-notification message="Click me!" action-url="https://example.com"></toast-notification>
+    <toast-notification message="Custom border color" border-color="#ff00ff"></toast-notification>
+    <toast-notification message="Main message">
+      <p>Additional details can go here.</p>
+      <a href="https://example.com">Learn more</a>
+    </toast-notification>
+  </toast-container>
+
   <script src="bundle.js"></script>
 </body>
 </html>
