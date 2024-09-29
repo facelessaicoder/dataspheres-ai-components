@@ -7,7 +7,6 @@ class ToastNotification extends HTMLElement {
   }
 
   connectedCallback() {
-    // Delay initialization to ensure all attributes are set
     setTimeout(() => this.initializeToast(), 0);
   }
 
@@ -23,31 +22,36 @@ class ToastNotification extends HTMLElement {
     const type = this.getAttribute('type') || 'info';
     const borderColor = this.getAttribute('border-color') || this.getDefaultBorderColor(type);
     const actionUrl = this.getAttribute('action-url');
+    const ctaText = this.getAttribute('cta-text');
 
     this.shadowRoot.innerHTML = `
       <style>
         :host {
+          display: block;
           background-color: #ffffff;
           color: #333333;
           padding: 12px 20px;
           border-radius: 4px;
           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
           width: 300px;
           box-sizing: border-box;
           border-left: 4px solid ${borderColor};
-          cursor: ${actionUrl ? 'pointer' : 'default'};
           opacity: 0;
           transition: opacity 0.3s ease-out;
         }
-        .content {
-          flex-grow: 1;
-          margin-right: 20px;
+        .toast-content {
+          display: flex;
+          flex-direction: column;
+        }
+        .toast-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 8px;
         }
         .message {
-          margin-bottom: 5px;
+          flex-grow: 1;
+          margin-right: 10px;
         }
         .close-btn {
           background: none;
@@ -55,16 +59,38 @@ class ToastNotification extends HTMLElement {
           cursor: pointer;
           font-size: 18px;
           color: #999999;
+          padding: 0;
+          line-height: 1;
         }
         .close-btn:hover {
           color: #333333;
         }
+        .cta-button {
+          display: inline-block;
+          background-color: #4CAF50;
+          color: white;
+          padding: 6px 12px;
+          text-align: center;
+          text-decoration: none;
+          font-size: 14px;
+          border-radius: 4px;
+          border: none;
+          cursor: pointer;
+          margin-top: 8px;
+          transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+          background-color: #45a049;
+        }
       </style>
-      <div class="content">
-        <div class="message">${message}</div>
+      <div class="toast-content">
+        <div class="toast-header">
+          <div class="message">${message}</div>
+          <button class="close-btn">&times;</button>
+        </div>
         <slot></slot>
+        ${ctaText && actionUrl ? `<a href="${actionUrl}" class="cta-button">${ctaText}</a>` : ''}
       </div>
-      <button class="close-btn">&times;</button>
     `;
   }
 
@@ -86,17 +112,10 @@ class ToastNotification extends HTMLElement {
     });
 
     const actionUrl = this.getAttribute('action-url');
-    const clickCallback = this.getAttribute('click-callback');
-
-    if (actionUrl || clickCallback) {
+    if (actionUrl) {
       this.addEventListener('click', (e) => {
-        if (e.target !== closeBtn) {
-          if (actionUrl) {
-            window.location.href = actionUrl;
-          } else if (clickCallback) {
-            const callback = new Function('return ' + clickCallback)();
-            callback();
-          }
+        if (e.target !== closeBtn && !e.target.classList.contains('cta-button')) {
+          window.location.href = actionUrl;
         }
       });
     }
@@ -109,7 +128,7 @@ class ToastNotification extends HTMLElement {
   }
 
   setupAutoClose() {
-    const duration = parseInt(this.getAttribute('duration')) || 30000; // Default to 30 seconds
+    const duration = parseInt(this.getAttribute('duration')) || 30000;
     setTimeout(() => {
       this.close();
     }, duration);

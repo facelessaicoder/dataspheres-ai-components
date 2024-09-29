@@ -31,6 +31,41 @@ class ToastContainer extends HTMLElement {
         <slot></slot>
       `;
     }
+
+    addToast({ 
+        message, 
+        type = 'info', 
+        duration = 30000, 
+        actionUrl = '', 
+        ctaText = '', 
+        borderColor = '',
+        clickCallback = ''
+      }) {
+        const toast = document.createElement('toast-notification');
+        toast.setAttribute('message', message);
+        toast.setAttribute('type', type);
+        toast.setAttribute('duration', duration.toString());
+        
+        if (actionUrl) {
+          toast.setAttribute('action-url', actionUrl);
+        }
+        
+        if (ctaText) {
+          toast.setAttribute('cta-text', ctaText);
+        }
+        
+        if (borderColor) {
+          toast.setAttribute('border-color', borderColor);
+        }
+        
+        if (clickCallback) {
+          toast.setAttribute('click-callback', clickCallback);
+        }
+    
+        this.appendChild(toast);
+        this.initializeToast(toast);
+        return toast;
+    }
   
     setupMutationObserver() {
       const observer = new MutationObserver((mutations) => {
@@ -70,4 +105,3 @@ class ToastContainer extends HTMLElement {
   customElements.define('toast-container', ToastContainer);
   
   export default ToastContainer;
-  
