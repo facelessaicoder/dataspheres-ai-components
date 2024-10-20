@@ -10,11 +10,20 @@
   <div class="max-w-7xl mx-auto">
     <h1 class="text-3xl font-bold mb-4">AI-Powered Business Intelligence Dashboard</h1>
     <p class="mb-6 text-gray-600">Real-time performance metrics across top tech companies</p>
-    <comparison-matrix
-      x-axis='["Apple", "Microsoft", "Amazon", "Alphabet", "Meta"]'
-      y-axis='["Market Cap", "Revenue (TTM)", "Net Income (TTM)", "P/E Ratio", "YoY Growth", "AI Investment", "Customer Satisfaction"]'
-      matrix-data='[
+    <matrix-table
+      name="Tech Company Metrics"
+      description="Key performance indicators for leading technology companies"
+      headers='[
+        {"label": "Metric"},
+        {"label": "Apple"},
+        {"label": "Microsoft"},
+        {"label": "Amazon"},
+        {"label": "Alphabet"},
+        {"label": "Meta"}
+      ]'
+      rows='[
         [
+          {"type": "text", "value": "Market Cap"},
           {"type": "currency", "value": 2850000000000},
           {"type": "currency", "value": 2710000000000},
           {"type": "currency", "value": 1470000000000},
@@ -22,6 +31,7 @@
           {"type": "currency", "value": 790000000000}
         ],
         [
+          {"type": "text", "value": "Revenue (TTM)"},
           {"type": "currency", "value": 383930000000},
           {"type": "currency", "value": 204090000000},
           {"type": "currency", "value": 513980000000},
@@ -29,6 +39,7 @@
           {"type": "currency", "value": 116610000000}
         ],
         [
+          {"type": "text", "value": "Net Income (TTM)"},
           {"type": "currency", "value": 96995000000},
           {"type": "currency", "value": 72360000000},
           {"type": "currency", "value": 26330000000},
@@ -36,6 +47,7 @@
           {"type": "currency", "value": 23200000000}
         ],
         [
+          {"type": "text", "value": "P/E Ratio"},
           {"type": "number", "value": 29.47},
           {"type": "number", "value": 37.41},
           {"type": "number", "value": 56.14},
@@ -43,6 +55,7 @@
           {"type": "number", "value": 34.06}
         ],
         [
+          {"type": "text", "value": "YoY Growth (%)"},
           {"type": "number", "value": 6.7},
           {"type": "number", "value": 8.3},
           {"type": "number", "value": 12.1},
@@ -50,6 +63,7 @@
           {"type": "number", "value": 4.6}
         ],
         [
+          {"type": "text", "value": "AI Investment"},
           {"type": "currency", "value": 5000000000},
           {"type": "currency", "value": 10000000000},
           {"type": "currency", "value": 7000000000},
@@ -57,16 +71,59 @@
           {"type": "currency", "value": 4000000000}
         ],
         [
+          {"type": "text", "value": "Customer Satisfaction"},
           {"type": "rating", "value": 4.5},
           {"type": "rating", "value": 4.2},
           {"type": "rating", "value": 4.1},
           {"type": "rating", "value": 4.3},
           {"type": "rating", "value": 3.9}
+        ],
+        [
+          {"type": "text", "value": "Environmental Impact"},
+          {"type": "text", "value": "Low"},
+          {"type": "text", "value": "Medium"},
+          {"type": "text", "value": "High"},
+          {"type": "text", "value": "Medium"},
+          {"type": "text", "value": "Low"}
         ]
       ]'
-    ></comparison-matrix>
+      global-actions='[
+    {
+      "id": "export",
+      "label": "Export",
+      "callback": "alert(\"Exporting data...\")"
+    },
+    {
+      "id": "refresh",
+      "label": "Refresh",
+      "callback": "alert(\"Refreshing data...\")"
+    }
+  ]'
+    on-column-action="(event) => console.log('Column action:', event.detail.action, 'on column:', event.detail.column)"
+    on-global-action="(event) => console.log('Global action:', event.detail.action)"
+    ></matrix-table>
   </div>
 
   <script src="/bundle.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const matrixTable = document.querySelector('matrix-table');
+      matrixTable.addEventListener('matrix-action', (e) => {
+        console.log('Action triggered:', e.detail.action);
+        // Handle the action here
+        switch (e.detail.action) {
+          case 'save':
+            alert('Saving data to database...');
+            break;
+          case 'visualize':
+            alert('Generating chart...');
+            break;
+          case 'analyze':
+            alert('Performing AI analysis...');
+            break;
+        }
+      });
+    });
+  </script>
 </body>
 </html>

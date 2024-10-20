@@ -38,13 +38,15 @@ class ToastContainer extends HTMLElement {
         duration = 30000, 
         actionUrl = '', 
         ctaText = '', 
-        borderColor = '',
+        ctaColor = '#005f56',
+        borderColor = '#a67c00',
         clickCallback = ''
       }) {
         const toast = document.createElement('toast-notification');
         toast.setAttribute('message', message);
         toast.setAttribute('type', type);
         toast.setAttribute('duration', duration.toString());
+        toast.setAttribute('border-color', borderColor);
         
         if (actionUrl) {
           toast.setAttribute('action-url', actionUrl);
@@ -54,8 +56,8 @@ class ToastContainer extends HTMLElement {
           toast.setAttribute('cta-text', ctaText);
         }
         
-        if (borderColor) {
-          toast.setAttribute('border-color', borderColor);
+        if (ctaColor) {
+          toast.setAttribute('cta-color', ctaColor);
         }
         
         if (clickCallback) {
@@ -65,7 +67,7 @@ class ToastContainer extends HTMLElement {
         this.appendChild(toast);
         this.initializeToast(toast);
         return toast;
-    }
+      }
   
     setupMutationObserver() {
       const observer = new MutationObserver((mutations) => {
