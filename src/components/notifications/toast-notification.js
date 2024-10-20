@@ -23,6 +23,7 @@ class ToastNotification extends HTMLElement {
     const borderColor = this.getAttribute('border-color') || this.getDefaultBorderColor(type);
     const actionUrl = this.getAttribute('action-url');
     const ctaText = this.getAttribute('cta-text');
+    const ctaColor = this.getAttribute('cta-color') || '#a67c00';
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -67,7 +68,7 @@ class ToastNotification extends HTMLElement {
         }
         .cta-button {
           display: inline-block;
-          background-color: #4CAF50;
+          background-color: ${ctaColor};
           color: white;
           padding: 6px 12px;
           text-align: center;
@@ -80,7 +81,7 @@ class ToastNotification extends HTMLElement {
           transition: background-color 0.3s;
         }
         .cta-button:hover {
-          background-color: #45a049;
+          background-color: ${ctaColor};
         }
       </style>
       <div class="toast-content">

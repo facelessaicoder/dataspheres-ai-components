@@ -21,6 +21,7 @@ import './components/story-section.js';
 import './components/scroll-animations.js';
 import './components/particle-animation.js';
 import './components/comparison-matrix.js';
+import './components/matrix-table.js';
 import './event-bus.js'
 
 // notification component imports
