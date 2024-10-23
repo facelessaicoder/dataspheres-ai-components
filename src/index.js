@@ -23,6 +23,9 @@ import './components/particle-animation.js';
 import './components/comparison-matrix.js';
 import './components/matrix-table.js';
 import './event-bus.js'
+import './components/list-item.js';
+import './components/flex-container.js';
+import './components/base-card.js';
 
 // notification component imports
 import './components/notifications/toast-notification.js';
