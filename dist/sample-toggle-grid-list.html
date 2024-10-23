@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+  <div class="max-w-7xl mx-auto">
+    <flex-container
+  items='[
+    {
+      "id": "1",
+      "name": "Project Alpha",
+      "description": "Enterprise-level cloud computing solution",
+      "actions": [
+        {
+          "id": "view",
+          "label": "View Details",
+          "url": "/projects/alpha"
+        },
+        {
+          "id": "edit",
+          "label": "Edit Project",
+          "callback": "alert(\"Editing Project Alpha\")"
+        },
+        {
+          "id": "share",
+          "label": "Share",
+          "callback": "alert(\"Sharing Project Alpha\")"
+        },
+        {
+          "id": "delete",
+          "label": "Delete",
+          "style": "secondary",
+          "callback": "alert(\"Deleting Project Alpha\")"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Project Beta",
+      "description": "Machine learning pipeline optimization",
+      "actions": [
+        {
+          "id": "view",
+          "label": "View Details",
+          "url": "/projects/beta"
+        },
+        {
+          "id": "edit",
+          "label": "Edit Project",
+          "callback": "alert(\"Editing Project Beta\")"
+        },
+        {
+          "id": "share",
+          "label": "Share",
+          "callback": "alert(\"Sharing Project Beta\")"
+        },
+        {
+          "id": "delete",
+          "label": "Delete",
+          "style": "secondary",
+          "callback": "alert(\"Deleting Project Beta\")"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Project Gamma",
+      "description": "Real-time data analytics dashboard",
+      "actions": [
+        {
+          "id": "view",
+          "label": "View Details",
+          "url": "/projects/gamma"
+        },
+        {
+          "id": "edit",
+          "label": "Edit Project",
+          "callback": "alert(\"Editing Project Gamma\")"
+        },
+        {
+          "id": "share",
+          "label": "Share",
+          "callback": "alert(\"Sharing Project Gamma\")"
+        },
+        {
+          "id": "delete",
+          "label": "Delete",
+          "style": "secondary",
+          "callback": "alert(\"Deleting Project Gamma\")"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Project Delta",
+      "description": "Automated deployment pipeline",
+      "actions": [
+        {
+          "id": "view",
+          "label": "View Details",
+          "url": "/projects/delta"
+        },
+        {
+          "id": "edit",
+          "label": "Edit Project",
+          "callback": "alert(\"Editing Project Delta\")"
+        },
+        {
+          "id": "share",
+          "label": "Share",
+          "callback": "alert(\"Sharing Project Delta\")"
+        },
+        {
+          "id": "delete",
+          "label": "Delete",
+          "style": "secondary",
+          "callback": "alert(\"Deleting Project Delta\")"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Project Epsilon",
+      "description": "Security compliance monitoring",
+      "actions": [
+        {
+          "id": "view",
+          "label": "View Details",
+          "url": "/projects/epsilon"
+        },
+        {
+          "id": "edit",
+          "label": "Edit Project",
+          "callback": "alert(\"Editing Project Epsilon\")"
+        },
+        {
+          "id": "share",
+          "label": "Share",
+          "callback": "alert(\"Sharing Project Epsilon\")"
+        },
+        {
+          "id": "delete",
+          "label": "Delete",
+          "style": "secondary",
+          "callback": "alert(\"Deleting Project Epsilon\")"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Project Zeta",
+      "description": "User behavior analytics platform",
+      "actions": [
+        {
+          "id": "view",
+          "label": "View Details",
+          "url": "/projects/zeta"
+        },
+        {
+          "id": "edit",
+          "label": "Edit Project",
+          "callback": "alert(\"Editing Project Zeta\")"
+        },
+        {
+          "id": "share",
+          "label": "Share",
+          "callback": "alert(\"Sharing Project Zeta\")"
+        },
+        {
+          "id": "delete",
+          "label": "Delete",
+          "style": "secondary",
+          "callback": "alert(\"Deleting Project Zeta\")"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Project Eta",
+      "description": "CI/CD workflow automation",
+      "actions": [
+        {
+          "id": "view",
+          "label": "View Details",
+          "url": "/projects/eta"
+        },
+        {
+          "id": "edit",
+          "label": "Edit Project",
+          "callback": "alert(\"Editing Project Eta\")"
+        },
+        {
+          "id": "share",
+          "label": "Share",
+          "callback": "alert(\"Sharing Project Eta\")"
+        },
+        {
+          "id": "delete",
+          "label": "Delete",
+          "style": "secondary",
+          "callback": "alert(\"Deleting Project Eta\")"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Project Theta",
+      "description": "Containerized microservices platform",
+      "actions": [
+        {
+          "id": "view",
+          "label": "View Details",
+          "url": "/projects/theta"
+        },
+        {
+          "id": "edit",
+          "label": "Edit Project",
+          "callback": "alert(\"Editing Project Theta\")"
+        },
+        {
+          "id": "share",
+          "label": "Share",
+          "callback": "alert(\"Sharing Project Theta\")"
+        },
+        {
+          "id": "delete",
+          "label": "Delete",
+          "style": "secondary",
+          "callback": "alert(\"Deleting Project Theta\")"
+        }
+      ]
+    }
+  ]'
+  layout="grid"
+  columns="3"
+  gap="1rem"
+></flex-container>
+  </div>
+  <script src="/bundle.js"></script>
+</body>
+</html>

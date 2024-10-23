@@ -23,7 +23,7 @@ class ToastNotification extends HTMLElement {
     const borderColor = this.getAttribute('border-color') || this.getDefaultBorderColor(type);
     const actionUrl = this.getAttribute('action-url');
     const ctaText = this.getAttribute('cta-text');
-    const ctaColor = this.getAttribute('cta-color') || '#a67c00';
+    const ctaColor = this.getAttribute('cta-color') || '#005f56';
 
     this.shadowRoot.innerHTML = `
       <style>
