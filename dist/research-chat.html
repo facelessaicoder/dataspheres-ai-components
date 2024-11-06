@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+  <div class="max-w-7xl mx-auto">
+    
+    <action-buttons
+    title=""
+    description="Select your mode"
+    buttons='[
+      {
+        "label": "Simple Alert",
+        "callback": "alert(\"Hello!\")",
+        "icon": "share",
+        "color": "#2563eb"
+      },
+      {
+        "label": "Console Log with Args",
+        "callback": "console.log(\"Selected mode:\", \"research\", \"time:\", Date.now())",
+        "icon": "edit"
+      },
+      {
+        "label": "Visit Google",
+        "url": "https://google.com",
+        "icon": {
+          "path": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m6-6H6\"/>"
+        }
+      },
+      {
+        "label": "Function with Args",
+        "callback": "handleMode(\"research\", { userId: 123, timestamp: Date.now() })"
+      }
+    ]'
+  ></action-buttons>
+    
+    <research-chat
+        threads='[{"id":"main","name":"Main Discussion","messages":[{"id":"1","sender":{"type":"bot","name":"ResearchBot","avatar":"/api/placeholder/32/32"},"content":"I\'ve analyzed the latest dataset. Here are the key findings from the Q3 report:","timestamp":"2:30 PM","actions":[{"id":"view","label":"View Full Analysis","type":"primary"},{"id":"report","label":"Generate Report","type":"secondary"}],"suggestions":["Compare with Q2 data","Generate visualization","Schedule team review"]},{"id":"2","sender":{"type":"human","name":"Sarah Chen","avatar":"/api/placeholder/32/32"},"content":"Can you break down the growth metrics by region?","timestamp":"2:32 PM"},{"id":"3","sender":{"type":"bot","name":"DataBot","avatar":"/api/placeholder/32/32"},"content":"Here\'s the regional breakdown for Q3:\\n\\n• North America: +15.8%\\n• Europe: +12.3%\\n• Asia Pacific: +18.9%\\n• Latin America: +8.7%","timestamp":"2:33 PM","actions":[{"id":"export","label":"Export to Excel","type":"primary"},{"id":"share","label":"Share Analysis","type":"secondary"}],"suggestions":["Show month-over-month trends","Compare to industry average","Forecast Q4 growth"]}]}]'
+        active-bots='[{"name":"ResearchBot","avatar":"/api/placeholder/32/32"},{"name":"DataBot","avatar":"/api/placeholder/32/32"}]'
+        team-members='[{"name":"Sarah Chen","initials":"SC"},{"name":"John Doe","initials":"JD"}]'
+        active-thread="main">
+    </research-chat>
+  </div>
+  <script src="/bundle.js"></script>
+</body>
+</html>

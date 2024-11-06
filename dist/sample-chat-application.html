@@ -28,29 +28,24 @@
 ]' new-chat-enabled></left-sidebar>
   <right-sidebar class="hidden"></right-sidebar>
   <main>
-    <chat-window>
-      <div slot="messages">
-        <!-- Example messages -->
-        <chat-message type="user" message="Hello!" name="user"></chat-message>
-        <chat-message type="ai" message="Hi there! How can I assist you today?" name="ai"></chat-message>
-        <chat-message type="user" message="I need help with my project." name="user"></chat-message>
-        <chat-message type="ai" message="Sure, I can help with that. What do you need assistance with?" name="ai"></chat-message>
-      </div>
-    </chat-window>
+    <research-chat
+        threads='[{
+            "id": "main",
+            "name": "Main Discussion",
+            "messages": []
+        }]'
+        active-bots='[
+            {"name": "ResearchBot", "avatar": "path/to/avatar"},
+            {"name": "DataBot", "avatar": "path/to/avatar"}
+        ]'
+        team-members='[
+            {"name": "Sarah Chen", "initials": "SC"},
+            {"name": "John Doe", "initials": "JD"}
+        ]'
+        active-thread="main"
+        >
+    </research-chat>
   </main>
-
-  <toast-container>
-    <toast-notification cta-text="test" action-url="test" message="This is a test notification" type="info"></toast-notification>
-    <toast-notification message="This is a test notification" type="info"></toast-notification>
-    <toast-notification message="I'll stay for 10 seconds" duration="10000"></toast-notification>
-    <toast-notification message="Click me!" click-callback="() => { console.log('Notification clicked!'); }"></toast-notification>
-    <toast-notification message="Click me!" action-url="https://example.com"></toast-notification>
-    <toast-notification message="Custom border color" border-color="#ff00ff"></toast-notification>
-    <toast-notification message="Main message">
-      <p>Additional details can go here.</p>
-      <a href="https://example.com">Learn more</a>
-    </toast-notification>
-  </toast-container>
 
   <script src="bundle.js"></script>
 </body>
