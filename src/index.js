@@ -26,6 +26,7 @@ import './event-bus.js'
 import './components/list-item.js';
 import './components/flex-container.js';
 import './components/base-card.js';
+import './components/action-buttons.js';
 
 // notification component imports
 import './components/notifications/toast-notification.js';
@@ -43,6 +44,10 @@ import './components/web_builder/content/contact/contact-us-section.js';
 import './components/web_builder/content/hero/image-hero.js';
 import './components/web_builder/content/services/services-grid.js';
 import './components/web_builder/content/services/services-section.js';
+
+// Import and export researchChat components
+import './components/research/research_chat.js';
+import './components/research/research-message.js';
 
 // Importing configuration, theme, and navigation handling functions
 import { initializeConfig } from './config.js';
