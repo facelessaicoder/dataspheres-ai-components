@@ -49,6 +49,10 @@ import './components/web_builder/content/services/services-section.js';
 import './components/research/research_chat.js';
 import './components/research/research-message.js';
 
+// audio
+import './components/audio/audio_visualizer.js'
+import './components/audio/audio-chat-interface.js'
+
 // Importing configuration, theme, and navigation handling functions
 import { initializeConfig } from './config.js';
 import { initializeTheme } from './theme.js';

@@ -1,16 +1,29 @@
 {
   "name": "dataspheres-ai-components",
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "description": "AI-powered web components for building modern interfaces",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "start": "npx webpack serve --config webpack.config.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "web-components",
+    "ai",
+    "ui",
+    "components",
+    "dataspheres"
+  ],
+  "author": "Faceless AI Coder",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/facelessaicoder/dataspheres-ai-components"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@babel/core": "^7.24.6",
     "@babel/preset-env": "^7.24.6",
@@ -21,9 +34,6 @@
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"
-  },
-  "optionalDependencies": {
-    
   },
   "dependencies": {
     "three": "^0.165.0",
