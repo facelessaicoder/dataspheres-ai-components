@@ -77,7 +77,7 @@ class AudioChatInterface extends HTMLElement {
   
         switch (target.dataset.action) {
           case 'close':
-            this.dispatchEvent(new CustomEvent('close'));
+            this.dispatchEvent(new CustomEvent('chat-audio-close'));
             break;
           case 'mute':
             this.toggleMute();
