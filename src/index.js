@@ -1,7 +1,5 @@
 // Importing components
-import './components/chat-message.js';
 import './components/message-input.js';
-import './components/chat-window.js';
 import './components/chat-topbar.js';
 import './components/video-chat.js';
 import './components/document-sharing.js';
@@ -52,6 +50,14 @@ import './components/research/research-message.js';
 // audio
 import './components/audio/audio_visualizer.js'
 import './components/audio/audio-chat-interface.js'
+
+// trying a new chat ux again...
+import './components/chat/chat-message.js'
+import './components/chat/chat-article-preview.js'
+import './components/chat/chat-search-results.js'
+import './components/chat/chat-attachment.js'
+import './components/chat/chat-loading-overlay.js'
+import './components/chat/chat-loading-status.js'
 
 // Importing configuration, theme, and navigation handling functions
 import { initializeConfig } from './config.js';
