@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Chat List</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    
+    <chat-message sender-name="Alex Chen" timestamp="2:30 PM" status="online">
+        Check this out:
+        <chat-article-preview
+          url="https://example.com/article"
+          title="Building Modern Web Components"
+          description="A comprehensive guide to creating reusable web components..."
+          image="https://example.com/image.jpg"
+          site-name="Web Dev Blog">
+        </chat-article-preview>
+    </chat-message>
+
+    <chat-message sender-name="Alex Chen" timestamp="2:45 PM">
+        Here are the project files:
+        <chat-message-attachments>
+          <!-- Image attachment -->
+          <chat-attachment 
+            name="screenshot.png"
+            type="image"
+            size="2097152"
+            url="/files/screenshot.png">
+          </chat-attachment>
+      
+          <!-- PDF document -->
+          <chat-attachment 
+            name="project-proposal.pdf"
+            type="pdf"
+            size="1048576"
+            url="/files/proposal.pdf">
+          </chat-attachment>
+      
+          <!-- Video file -->
+          <chat-attachment 
+            name="demo-recording.mp4"
+            type="video"
+            size="15728640"
+            url="/files/demo.mp4">
+          </chat-attachment>
+      
+          <!-- Audio file -->
+          <chat-attachment 
+            name="meeting-notes.mp3"
+            type="audio"
+            size="5242880"
+            url="/files/notes.mp3">
+          </chat-attachment>
+      
+          <!-- Generic document -->
+          <chat-attachment 
+            name="requirements.docx"
+            type="doc"
+            size="524288"
+            url="/files/requirements.docx">
+          </chat-attachment>
+        </chat-message-attachments>
+      </chat-message>
+
+      <chat-message sender-name="Search Bot" initials="SB" timestamp="2:31 PM">
+        <chat-search-results 
+          query="web components" 
+          summary="Found 3 relevant results">
+          
+          <chat-article-preview
+            url="https://example.com/article1"
+            title="Understanding Web Components"
+            description="A comprehensive guide to Web Components and their use in modern web development."
+            site-name="Web Dev Blog">
+          </chat-article-preview>
+      
+          <chat-article-preview
+            url="https://example.com/article2"
+            title="Building Custom Elements"
+            description="Learn how to create and use custom elements in your web applications."
+            site-name="Dev.to">
+          </chat-article-preview>
+      
+          <chat-article-preview
+            url="https://example.com/article3"
+            title="Shadow DOM Explained"
+            description="Deep dive into Shadow DOM and its role in Web Components."
+            site-name="MDN Web Docs">
+          </chat-article-preview>
+        </chat-search-results>
+      </chat-message>
+
+    <chat-message sender-name="Alex Chen" timestamp="2:30 PM" status="online">
+        Check this out:
+        <chat-article-preview
+          url="https://example.com/article"
+          title="Building Modern Web Components"
+          description="A comprehensive guide to creating reusable web components..."
+          image="https://example.com/image.jpg"
+          site-name="Web Dev Blog">
+
+          <chat-loading-overlay
+            overlay="true"
+            message="Analyzing content..." 
+            progress="45">
+          </chat-loading-overlay>
+
+        </chat-article-preview>
+    </chat-message>
+
+    <chat-message sender-name="AI Assistant" timestamp="2:30 PM">
+        <chat-loading-status message="Searching the web..."></chat-loading-status>
+    </chat-message>
+
+    <!-- Example within a chat message -->
+    <chat-message sender-name="AI Assistant" timestamp="2:30 PM">
+        Here's the financial analysis you requested:
+        <chat-attachment 
+            name="financial-analysis.xlsx"
+            type="doc"
+            size="2097152"
+            url="/files/analysis.xlsx">
+            <chat-loading-overlay 
+                message="Extracting insights..." 
+                progress="70">
+            </chat-loading-overlay>
+        </chat-attachment>
+    </chat-message>
+
+    <chat-message sender-name="Sarah Johnson" timestamp="2:30 PM" avatar-url="/path/to/avatar.jpg" actions='[{"id":"bookmark","title":"Save this message to your library","icon":"<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z\" /></svg>","background":"#4f46e5","callback":"alert(\"Bookmarked!\")"},{"id":"reply","title":"Start a thread by replying","icon":"<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3\" /></svg>","background":"#059669","callback":"alert(\"Reply clicked!\")"}]'>This is a test message with hover actions in the top right corner.</chat-message>
+
+
+  <script src="/bundle.js"></script>
+</body>
+</html>
