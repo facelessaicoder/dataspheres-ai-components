@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Hair Stories - Global Crowns Research Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-[#005f56] via-[#004b43] to-[#003730] min-h-screen" style="padding: 0px;">
+    <div id="survey-container"></div>
+
+    <script src="/bundle.js"></script>
+    <script>
+        const surveyContainer = document.getElementById('survey-container');
+        const surveyComponent = document.createElement('survey-container');
+        surveyComponent.questions = [
+            {
+                title: "Welcome to Global Crowns Research Project",
+                description: "Share your natural hair journey with us. Your stories will help us understand and celebrate the diverse experiences of natural hair around the world. You can type your responses, record audio, or share video for any question.",
+                component: "p",
+                attributes: {
+                    class: "text-white"
+                },
+                backgroundImage: "/images/welcome.png"
+            },
+            {
+                title: "Your Most Confident Natural Hair Moment",
+                description: "Tell us about a time when you felt most confident wearing your natural hair. What were you doing? Where were you? How were you feeling?",
+                component: "text-question",
+                attributes: {
+                    question: "Share your story of confidence...",
+                    rows: 4,
+                    "enable-audio": true,
+                    "enable-video": true,
+                    "theme-color": "#005f56",
+                    "text-color": "#ffffff"
+                },
+                backgroundImage: "/images/confident.png"
+            },
+            {
+                title: "A Challenging Natural Hair Experience",
+                description: "Share a story about a time when you felt least confident about your natural hair. What were you doing? Where were you? How were you feeling?",
+                component: "text-question",
+                attributes: {
+                    question: "Share your challenging experience...",
+                    rows: 4,
+                    "enable-audio": true,
+                    "enable-video": true,
+                    "theme-color": "#005f56",
+                    "text-color": "#ffffff"
+                },
+                backgroundImage: "/images/down.png"
+            },
+            {
+                title: "Your Natural Hair Decision Factors",
+                description: "What factors influence how and when you wear natural hairstyles? Can you share a specific example that illustrates this?",
+                component: "text-question",
+                attributes: {
+                    question: "Tell us about your decision-making process...",
+                    rows: 4,
+                    "enable-audio": true,
+                    "enable-video": true,
+                    "theme-color": "#005f56",
+                    "text-color": "#ffffff"
+                },
+                backgroundImage: "/images/ready.png"
+            },
+            {
+                title: "Memorable Hair Stories",
+                description: "Are there other significant moments in your natural hair journey that stand out? Share any stories that have shaped your relationship with your natural hair.",
+                component: "text-question",
+                attributes: {
+                    question: "Share your memorable hair stories...",
+                    rows: 4,
+                    "enable-audio": true,
+                    "enable-video": true,
+                    "theme-color": "#005f56",
+                    "text-color": "#ffffff"
+                },
+                backgroundImage: "/images/happy.png"
+            },
+            {
+                title: "Additional Experiences",
+                description: "Would you like to share any other positive or negative experiences that have influenced your natural hair journey?",
+                component: "text-question",
+                attributes: {
+                    question: "Share additional experiences...",
+                    rows: 4,
+                    "enable-audio": true,
+                    "enable-video": true,
+                    "theme-color": "#005f56",
+                    "text-color": "#ffffff"
+                },
+                backgroundImage: "/images/split.png"
+            },
+            {
+                title: "Thank You",
+                description: "Thank you for sharing your natural hair stories with us. Your experiences will help us better understand and celebrate natural hair journeys around the world.",
+                component: "p",
+                attributes: {
+                    class: "text-white"
+                },
+                backgroundImage: "/images/thanku.png"
+            }
+        ];
+
+        // Add custom styling for the survey container and slides
+        const style = document.createElement('style');
+        style.textContent = `
+            survey-container {
+                --primary-color: #005f56;
+                --secondary-color: #004b43;
+                --accent-color: #a67c00;
+                --text-color: #ffffff;
+                --background-color: rgba(255, 255, 255, 0.05);
+                --border-color: rgba(255, 255, 255, 0.1);
+                color: #ffffff;
+            }
+
+            .survey-slide {
+                background-color: rgba(0, 95, 86, 0.1);
+                backdrop-filter: blur(8px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 16px;
+                padding: 2rem;
+                color: #ffffff;
+            }
+
+            .survey-slide p {
+                color: #ffffff;
+            }
+
+            .survey-title {
+                color: #ffffff;
+                font-size: 1.875rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+                line-height: 1.2;
+            }
+
+            .survey-description {
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 1.125rem;
+                line-height: 1.5;
+                margin-bottom: 2rem;
+            }
+
+            .survey-navigation {
+                margin-top: 2rem;
+                display: flex;
+                gap: 1rem;
+            }
+
+            .survey-button {
+                background-color: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: white;
+                padding: 0.75rem 1.5rem;
+                border-radius: 9999px;
+                font-weight: 500;
+                transition: all 0.2s ease;
+            }
+
+            .survey-button:hover {
+                background-color: rgba(255, 255, 255, 0.2);
+                transform: translateY(-1px);
+            }
+
+            .survey-progress {
+                background-color: rgba(255, 255, 255, 0.2);
+                height: 4px;
+                border-radius: 2px;
+                margin-top: 2rem;
+            }
+
+            .survey-progress-bar {
+                background-color: #ffffff;
+                height: 100%;
+                border-radius: 2px;
+                transition: width 0.3s ease;
+            }
+
+            /* Additional text color overrides */
+            p, h1, h2, h3, h4, h5, h6, span, label {
+                color: #ffffff;
+            }
+
+            /* Keep input text dark */
+            input, textarea {
+                color: #1a1a1a;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        surveyContainer.appendChild(surveyComponent);
+    </script>
+</body>
+</html>
