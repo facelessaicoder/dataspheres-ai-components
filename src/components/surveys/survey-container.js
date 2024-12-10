@@ -62,14 +62,16 @@ class SurveyContainer extends HTMLElement {
           position: fixed; 
           left: 50%; 
           transform: translateX(-50%); 
-          background: none;
+          background: rgba(255, 255, 255, 0.1);
           border: none; 
           cursor: pointer;
-          padding: 0;
-          transition: opacity 0.3s ease;
+          padding: 8px;
+          border-radius: 50%;
+          backdrop-filter: blur(4px);
+          transition: all 0.3s ease;
         }
         .nav-button:hover {
-          opacity: 0.7;
+          background: rgba(255, 255, 255, 0.2);
         }
         .nav-button.hidden {
           opacity: 0;
@@ -84,18 +86,26 @@ class SurveyContainer extends HTMLElement {
         .nav-button svg {
           width: 40px;
           height: 40px;
-          stroke: black;
+          stroke: white;
+          filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
         }
         .menu-button { 
           position: fixed; 
-          top: 1rem; 
-          right: 1rem; 
-          background-color: rgba(229, 231, 235, 0.8); 
-          padding: 0.5rem; 
-          border-radius: 50%; 
-          border: none; 
+          top: 1.5rem; 
+          right: 1.5rem; 
+          background-color: white; 
+          padding: 0.75rem;
+          border-radius: 8px;
+          border: 1px solid #e5e7eb;
           cursor: pointer;
           z-index: 10;
+          color: #1a1a1a;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          transition: all 0.2s ease;
+        }
+        .menu-button:hover {
+          background-color: #f9fafb;
+          transform: translateY(-1px);
         }
         .menu { 
           position: fixed; 
@@ -104,34 +114,45 @@ class SurveyContainer extends HTMLElement {
           height: 100vh;
           width: 300px;
           background-color: white; 
-          box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1); 
+          box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1); 
           padding: 2rem;
           transform: translateX(100%);
           transition: transform 0.3s ease;
+          z-index: 9;
         }
         .menu.open {
           transform: translateX(0);
         }
         .menu h3 { 
-          font-size: 1.5rem; 
+          font-size: 1.25rem; 
           font-weight: 600; 
-          margin-bottom: 1rem; 
+          margin-bottom: 1.5rem;
+          padding-bottom: 0.75rem;
+          border-bottom: 1px solid #e5e7eb;
+          color: #005f56;
         }
         .menu ul { 
           list-style-type: none; 
-          padding: 0; 
+          padding: 0;
+          margin: 0;
         }
         .menu li { 
           cursor: pointer; 
-          padding: 0.5rem 0;
-          transition: color 0.3s ease;
+          padding: 0.75rem 1rem;
+          margin: 0.25rem 0;
+          border-radius: 6px;
+          color: #374151;
+          font-size: 0.9375rem;
+          transition: all 0.2s ease;
         }
         .menu li:hover {
-          color: #3b82f6;
+          background-color: #f3f4f6;
+          color: #005f56;
         }
         .menu li.active { 
-          color: #3b82f6; 
-          font-weight: bold;
+          background-color: #f0f9f8;
+          color: #005f56;
+          font-weight: 500;
         }
         .background {
           position: absolute;

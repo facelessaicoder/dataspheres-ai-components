@@ -11,7 +11,23 @@ class TextQuestion extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['question', 'rows', 'enable-audio', 'enable-video'];
+    return ['question', 'rows', 'enable-audio', 'enable-video', 'theme-color', 'text-color'];
+  }
+
+  getThemeColors() {
+    return {
+      primary: this.getAttribute('theme-color') || '#005f56',
+      text: this.getAttribute('text-color') || '#ffffff',
+      inputBg: '#ffffff',
+      inputText: '#1a1a1a',
+      border: 'rgba(255, 255, 255, 0.2)',
+      tabInactive: 'rgba(255, 255, 255, 0.6)',
+      tabActive: '#ffffff',
+      tabHover: 'rgba(255, 255, 255, 0.1)',
+      recordBtn: '#22c55e',
+      stopBtn: '#ef4444',
+      timerText: '#ffffff'
+    };
   }
 
   connectedCallback() {
@@ -24,6 +40,7 @@ class TextQuestion extends HTMLElement {
   }
 
   render() {
+    const colors = this.getThemeColors();
     const question = this.getAttribute('question') || 'Please answer the question';
     const rows = parseInt(this.getAttribute('rows')) || 1;
     const enableAudio = this.hasAttribute('enable-audio');
@@ -40,124 +57,145 @@ class TextQuestion extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         .question-container {
-          font-family: Arial, sans-serif;
+          font-family: system-ui, -apple-system, sans-serif;
           margin-bottom: 20px;
+          color: ${colors.text};
         }
         label {
           display: block;
           margin-bottom: 10px;
+          font-weight: 500;
         }
         textarea, input[type="text"] {
           width: 100%;
-          padding: 8px;
+          padding: 12px;
           margin-top: 8px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
+          border: 1px solid ${colors.border};
+          border-radius: 8px;
+          background-color: ${colors.inputBg};
+          color: ${colors.inputText};
+          font-size: 16px;
+          transition: all 0.2s ease;
+        }
+        textarea:focus, input[type="text"]:focus {
+          outline: none;
+          border-color: ${colors.primary};
+          box-shadow: 0 0 0 3px rgba(0, 95, 86, 0.1);
         }
         .input-type-tabs {
           display: flex;
-          border-bottom: 2px solid #e0e0e0;
+          border-bottom: 2px solid ${colors.border};
           margin-bottom: 15px;
+          padding: 0 4px;
         }
         .tab {
           display: flex;
           align-items: center;
-          padding: 10px 20px;
+          padding: 12px 20px;
           cursor: pointer;
           border: none;
           background: none;
-          color: #757575;
+          color: ${colors.tabInactive};
           font-size: 16px;
-          transition: all 0.3s ease;
-        }
-        .tab.active {
-          color: #2196F3;
-          border-bottom: 2px solid #2196F3;
+          transition: all 0.2s ease;
+          border-bottom: 2px solid transparent;
           margin-bottom: -2px;
         }
+        .tab.active {
+          color: ${colors.tabActive};
+          border-bottom: 2px solid ${colors.tabActive};
+        }
         .tab:hover {
-          background-color: #f5f5f5;
+          background-color: ${colors.tabHover};
         }
         .tab svg {
-          width: 24px;
-          height: 24px;
+          width: 20px;
+          height: 20px;
           margin-right: 8px;
         }
         .media-controls {
           display: flex;
           align-items: center;
-          margin-bottom: 10px;
+          margin-bottom: 15px;
         }
         .control-btn {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 10px 20px;
+          padding: 12px 24px;
           border: none;
-          border-radius: 20px;
+          border-radius: 9999px;
           font-size: 16px;
+          font-weight: 500;
           cursor: pointer;
-          transition: all 0.3s ease;
+          transition: all 0.2s ease;
         }
         .control-btn svg {
-          width: 24px;
-          height: 24px;
+          width: 20px;
+          height: 20px;
           margin-right: 8px;
         }
         .record-btn {
-          background-color: #2ecc40;
+          background-color: ${colors.recordBtn};
           color: white;
         }
         .stop-btn {
-          background-color: #ff4136;
+          background-color: ${colors.stopBtn};
           color: white;
         }
         .control-btn:hover {
-          opacity: 0.8;
+          opacity: 0.9;
+          transform: translateY(-1px);
         }
         .timer {
-          font-family: monospace;
+          font-family: ui-monospace, monospace;
           font-size: 18px;
           margin-left: 15px;
+          color: ${colors.timerText};
+          font-weight: 500;
         }
         .media-preview {
           position: relative;
-          margin-top: 10px;
+          margin-top: 15px;
           display: flex;
           align-items: center;
+          gap: 12px;
         }
         .media-preview audio,
         .media-preview video {
           max-width: 70%;
+          border-radius: 8px;
+          background: ${colors.tabHover};
         }
         .delete-btn {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          background-color: #ff4136;
+          background-color: ${colors.stopBtn};
           color: white;
           border: none;
-          border-radius: 4px;
-          padding: 8px 12px;
-          font-size: 16px;
+          border-radius: 8px;
+          padding: 10px 16px;
+          font-size: 14px;
+          font-weight: 500;
           cursor: pointer;
-          margin-left: 10px;
-          transition: all 0.3s ease;
+          transition: all 0.2s ease;
         }
         .delete-btn:hover {
-          opacity: 0.8;
+          opacity: 0.9;
+          transform: translateY(-1px);
         }
         .delete-btn svg {
-          width: 20px;
-          height: 20px;
-          margin-right: 5px;
+          width: 18px;
+          height: 18px;
+          margin-right: 6px;
         }
         .pulse-animation {
-          animation: pulse 1s infinite;
+          animation: pulse 2s infinite;
         }
         @keyframes pulse {
           0% { transform: scale(1); }
-          50% { transform: scale(1.05); }
+          50% { transform: scale(1.02); }
           100% { transform: scale(1); }
         }
         .input-content {
